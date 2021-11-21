@@ -24,7 +24,7 @@ namespace SchoolGrades.API
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "School Grades API API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "School Grades API", Version = "v1" });
             });
 
             services.AddApiVersioning(options =>
