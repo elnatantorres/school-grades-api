@@ -15,7 +15,7 @@ namespace SchoolGrades.API.Controllers
     public class AssessmentGradeController : ControllerBase
     {
         private readonly FirestoreDb _firestoreDb;
-        private string _credentialsDirectory = Directory.GetCurrentDirectory() + "\\usjt-a3-332601-a3c49cdf4250.json";
+        private string _credentialsDirectory = Directory.GetCurrentDirectory() + "/usjt-a3-332601-a3c49cdf4250.json";
 
         public AssessmentGradeController()
         {
