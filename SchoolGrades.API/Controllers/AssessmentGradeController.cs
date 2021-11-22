@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SchoolGrades.API.Models;
+using SchoolGrades.API.RequestValidation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,10 +53,21 @@ namespace SchoolGrades.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(AssessmentGrade grade)
         {
-            CollectionReference collectionReference = _firestoreDb.Collection("grade");
-            await collectionReference.AddAsync(grade);
+            Notification notification = CreateAssessmentGradeValidation.ValidateRequest(grade);
 
-            return Created("", "");
+            if (notification.ModelState.Count == 0)
+            {
+                CollectionReference collectionReference = _firestoreDb.Collection("grade");
+                await collectionReference.AddAsync(grade);
+
+                return Created("", "");
+            }
+            else
+            {
+                ValidationProblemDetails problemDetails = new ValidationProblemDetails(notification.ModelState);
+
+                return BadRequest(problemDetails);
+            }
         }
     }
 }
